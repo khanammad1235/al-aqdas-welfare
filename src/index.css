@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* New Off-White Background */
+    --background: #fdfbf7; 
+    --foreground: #1c261f;
+    
+    /* Deep Forest Green Primary */
+    --primary: #0b3b2c;
+    --primary-foreground: #ffffff;
+    
+    /* Elegant Gold Accent */
+    --accent: #c69c6d;
+    --accent-foreground: #ffffff;
+    
+    /* Secondary (Muted Green) */
+    --secondary: #134f3c;
+    --secondary-foreground: #ffffff;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom UI Utilities */
+@layer utilities {
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-soft;
+  }
+  .heading-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
+  }
+}
