@@ -1,4 +1,4 @@
-import { Mail, Phone, Clock, Facebook, Instagram, Youtube, Twitter } from 'lucide-react'
+import { Mail, Phone, Clock, Facebook, Instagram, Youtube } from 'lucide-react'
 
 export default function TopBar() {
   return (

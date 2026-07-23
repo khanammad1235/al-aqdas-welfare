@@ -1,4 +1,4 @@
-import { Heart, Users, GraduationCap, UtensilsCrossed, CheckCircle2, ChevronRight, BookOpen, HeartPulse, Droplets, ShieldAlert, Calendar } from 'lucide-react'
+import { Heart, Users, GraduationCap, UtensilsCrossed, CheckCircle2, ChevronRight, BookOpen, HeartPulse, Droplets, ShieldAlert } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
@@ -43,36 +43,7 @@ const programs = [
   },
 ]
 
-const events = [
-  {
-    date: '15',
-    month: 'JUN',
-    title: 'Free Health Check-up Camp',
-    location: 'Hyderabad, India',
-    image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=500&h=300&fit=crop'
-  },
-  {
-    date: '25',
-    month: 'JUN',
-    title: 'Food Distribution Drive',
-    location: 'Hyderabad, India',
-    image: 'https://images.unsplash.com/photo-1593113512671-6927a44f47cc?w=500&h=300&fit=crop'
-  },
-  {
-    date: '05',
-    month: 'JUL',
-    title: 'Quran Education Program',
-    location: 'Hyderabad, India',
-    image: 'https://images.unsplash.com/photo-1596541223130-5d564415f0d4?w=500&h=300&fit=crop'
-  },
-  {
-    date: '15',
-    month: 'JUL',
-    title: 'Blood Donation Camp',
-    location: 'Hyderabad, India',
-    image: 'https://images.unsplash.com/photo-1615461066841-6116e61058f4?w=500&h=300&fit=crop'
-  },
-]
+
 
 export default function Home() {
   const [donationType, setDonationType] = useState<'ONE TIME' | 'MONTHLY'>('ONE TIME')
