@@ -238,6 +238,8 @@ function HeroCarousel({ heroImgRef }: { heroImgRef: React.RefObject<HTMLDivEleme
   const [slideIdx, setSlideIdx] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [touchStart, setTouchStart] = useState<number | null>(null)
+  const [touchEnd, setTouchEnd] = useState<number | null>(null)
   const total = heroSlides.length
 
   const changeSlide = useCallback((nextIdx: number) => {
@@ -257,6 +259,30 @@ function HeroCarousel({ heroImgRef }: { heroImgRef: React.RefObject<HTMLDivEleme
     changeSlide((slideIdx - 1 + total) % total)
   }, [slideIdx, total, changeSlide])
 
+  // Touch swipe logic for mobile
+  const minSwipeDistance = 40
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null)
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+    if (isLeftSwipe) {
+      nextSlide()
+    } else if (isRightSwipe) {
+      prevSlide()
+    }
+  }
+
   useEffect(() => {
     if (!isPlaying) return
     const interval = setInterval(nextSlide, 4500)
@@ -268,10 +294,13 @@ function HeroCarousel({ heroImgRef }: { heroImgRef: React.RefObject<HTMLDivEleme
   return (
     <div
       ref={heroImgRef}
-      className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10 aspect-[4/3] lg:aspect-auto lg:h-[500px] group"
+      className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border-2 sm:border-4 border-white/10 h-[340px] sm:h-[440px] lg:h-[500px] w-full group select-none touch-pan-y"
       style={{ transition: 'transform 0.15s ease-out' }}
       onMouseEnter={() => setIsPlaying(false)}
       onMouseLeave={() => setIsPlaying(true)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       {/* Background slide images */}
       {heroSlides.map((slide, idx) => (
@@ -287,60 +316,59 @@ function HeroCarousel({ heroImgRef }: { heroImgRef: React.RefObject<HTMLDivEleme
             src={slide.img}
             alt={slide.title}
             className="w-full h-full object-cover"
+            draggable={false}
           />
           {/* Subtle dark gradient overlay for text contrast */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
         </div>
       ))}
 
       {/* Slide Badge Tag at Top Left */}
-      <div className="absolute top-6 left-6 z-20 transition-all duration-500">
-        <span className="inline-flex items-center gap-1.5 bg-primary/90 backdrop-blur-md border border-accent/40 text-accent text-xs font-bold px-3.5 py-1.5 rounded-full shadow-lg">
-          <Sparkles className="w-3.5 h-3.5 text-accent" />
+      <div className="absolute top-3 left-3 sm:top-6 sm:left-6 z-20 transition-all duration-500">
+        <span className="inline-flex items-center gap-1.5 bg-primary/90 backdrop-blur-md border border-accent/40 text-accent text-[11px] sm:text-xs font-bold px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full shadow-lg">
+          <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-accent" />
           {current.tag}
         </span>
       </div>
 
-
-
       {/* Chevron Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-black/30 hover:bg-primary/90 text-white rounded-full backdrop-blur-md border border-white/20 flex items-center justify-center transition-all duration-300 opacity-80 hover:opacity-100 hover:scale-110"
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-11 sm:h-11 bg-black/40 hover:bg-primary/90 text-white rounded-full backdrop-blur-md border border-white/20 flex items-center justify-center transition-all duration-300 opacity-90 hover:opacity-100 hover:scale-110 active:scale-95"
         aria-label="Previous Slide"
       >
-        <ChevronLeft className="w-6 h-6" />
+        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-black/30 hover:bg-primary/90 text-white rounded-full backdrop-blur-md border border-white/20 flex items-center justify-center transition-all duration-300 opacity-80 hover:opacity-100 hover:scale-110"
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-11 sm:h-11 bg-black/40 hover:bg-primary/90 text-white rounded-full backdrop-blur-md border border-white/20 flex items-center justify-center transition-all duration-300 opacity-90 hover:opacity-100 hover:scale-110 active:scale-95"
         aria-label="Next Slide"
       >
-        <ChevronRight className="w-6 h-6" />
+        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
       </button>
 
-      {/* Floating Animated Overlay Badge at Bottom Left */}
-      <div className="absolute bottom-6 left-6 right-6 z-20 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
-        <div className="bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-2xl border border-white/40 flex items-center gap-3.5 max-w-xs transition-all duration-500 hover:scale-105">
-          <div className="w-11 h-11 bg-primary rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
-            <Heart className="w-5 h-5 text-accent fill-current" />
+      {/* Floating Overlay Badge & Indicators at Bottom */}
+      <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6 z-20 flex flex-row items-end justify-between gap-2">
+        <div className="bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl p-2.5 sm:p-4 shadow-xl border border-white/40 flex items-center gap-2.5 sm:gap-3.5 max-w-[190px] sm:max-w-xs transition-all duration-500 hover:scale-105">
+          <div className="w-8 h-8 sm:w-11 sm:h-11 bg-primary rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
+            <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-accent fill-current" />
           </div>
-          <div>
-            <p className="text-xs text-slate-500 font-medium">{current.badgeText}</p>
-            <p className="text-xl font-bold font-serif text-primary">{current.badgeVal}</p>
+          <div className="min-w-0">
+            <p className="text-[10px] sm:text-xs text-slate-500 font-medium truncate">{current.badgeText}</p>
+            <p className="text-base sm:text-xl font-bold font-serif text-primary">{current.badgeVal}</p>
           </div>
         </div>
 
         {/* Thumbnail Indicators */}
-        <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/20 px-3 py-2 rounded-full">
+        <div className="flex items-center gap-1.5 sm:gap-2 bg-black/50 backdrop-blur-md border border-white/20 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-full">
           {heroSlides.map((_, i) => (
             <button
               key={i}
               onClick={() => changeSlide(i)}
               className={`rounded-full transition-all duration-300 ${
                 i === slideIdx
-                  ? 'w-7 h-2.5 bg-accent shadow-md'
-                  : 'w-2.5 h-2.5 bg-white/40 hover:bg-white/70'
+                  ? 'w-5 sm:w-7 h-2 sm:h-2.5 bg-accent shadow-md'
+                  : 'w-2 sm:w-2.5 h-2 sm:h-2.5 bg-white/40 hover:bg-white/70'
               }`}
               title={`Go to slide ${i + 1}`}
             />
@@ -447,6 +475,8 @@ function CausesCarousel({ active }: { active: boolean }) {
   const [idx, setIdx] = useState(0)
   const [animating, setAnimating] = useState(false)
   const [direction, setDirection] = useState<'left' | 'right'>('right')
+  const [touchStart, setTouchStart] = useState<number | null>(null)
+  const [touchEnd, setTouchEnd] = useState<number | null>(null)
   const total = carouselCauses.length
 
   const go = useCallback((next: number, dir: 'left' | 'right') => {
@@ -462,6 +492,30 @@ function CausesCarousel({ active }: { active: boolean }) {
   const prev = () => go((idx - 1 + total) % total, 'left')
   const next = () => go((idx + 1) % total, 'right')
 
+  // Touch swipe logic for mobile
+  const minSwipeDistance = 40
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null)
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+    if (isLeftSwipe) {
+      next()
+    } else if (isRightSwipe) {
+      prev()
+    }
+  }
+
   // Auto-advance
   useEffect(() => {
     if (!active) return
@@ -471,9 +525,13 @@ function CausesCarousel({ active }: { active: boolean }) {
 
   const cause = carouselCauses[idx]
 
-
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-secondary/30 backdrop-blur-sm shadow-2xl">
+    <div
+      className="relative overflow-hidden rounded-2xl border border-white/10 bg-secondary/30 backdrop-blur-sm shadow-2xl select-none touch-pan-y"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* Image */}
       <div className="relative h-52 overflow-hidden">
         <img
