@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import PageHeader from '../components/PageHeader'
 import { ImageLightbox } from '../components/ImageLightbox'
 import { Image as ImageIcon, Video } from 'lucide-react'
@@ -16,10 +16,32 @@ export default function Gallery() {
   const [visibleImages, setVisibleImages] = useState(IMAGES_PER_PAGE)
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const loadMoreRef = useRef<HTMLDivElement>(null)
 
-  const handleLoadMore = () => {
-    setVisibleImages(prev => Math.min(prev + IMAGES_PER_PAGE, galleryImages.length))
-  }
+  // Automatic Infinite Scroll on photos as user scrolls
+  useEffect(() => {
+    if (visibleImages >= galleryImages.length) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisibleImages(prev => Math.min(prev + IMAGES_PER_PAGE, galleryImages.length))
+        }
+      },
+      { threshold: 0.1, rootMargin: '250px' }
+    )
+
+    const currentRef = loadMoreRef.current
+    if (currentRef) {
+      observer.observe(currentRef)
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef)
+      }
+    }
+  }, [visibleImages])
 
   const openLightbox = (index: number) => {
     setCurrentIndex(index)
@@ -76,13 +98,9 @@ export default function Gallery() {
                   </div>
 
                   {visibleImages < galleryImages.length && (
-                    <div className="mt-10 text-center">
-                      <button
-                        onClick={handleLoadMore}
-                        className="px-8 py-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold rounded-full transition-colors shadow-sm"
-                      >
-                        Load More Photos
-                      </button>
+                    <div ref={loadMoreRef} className="mt-8 py-4 text-center flex items-center justify-center gap-2 text-emerald-600 font-medium text-sm">
+                      <div className="w-4 h-4 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin" />
+                      <span>Loading more photos...</span>
                     </div>
                   )}
                 </>
