@@ -11,10 +11,12 @@ import Donation from './pages/Donation'
 import Contact from './pages/Contact'
 import Documents from './pages/Documents'
 import TopBar from './components/TopBar'
+import WelcomeBanner from './components/WelcomeBanner'
 
 export default function App() {
   return (
     <div className="min-h-screen flex flex-col font-sans bg-background">
+      <WelcomeBanner />
       <TopBar />
       <Header />
       <main className="flex-1">
