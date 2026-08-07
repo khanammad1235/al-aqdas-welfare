@@ -7,7 +7,7 @@ interface DonationWidgetProps {
   theme?: 'dark' | 'light'
 }
 
-const UPI_VPA = 'alaqdaswelfare@upi'
+const UPI_VPA = 'mab.037326002330038@axisbank'
 const RECIPIENT_NAME = 'Al Aqdas Welfare Association'
 
 const PRESET_AMOUNTS = ['500', '1000', '2500', '5000', '10000']

@@ -32,7 +32,7 @@ export default function Donation() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3 w-full relative z-10 text-left mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full relative z-10 text-left mb-4">
                 <div className="flex justify-between items-center text-xs bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-100">
                   <span className="text-slate-500 font-bold uppercase tracking-wider text-[10px]">MID</span>
                   <span className="font-mono font-semibold text-slate-800">037326002330038</span>
@@ -41,6 +41,11 @@ export default function Donation() {
                   <span className="text-slate-500 font-bold uppercase tracking-wider text-[10px]">TID</span>
                   <span className="font-mono font-semibold text-slate-800">85979842</span>
                 </div>
+              </div>
+
+              <div className="w-full relative z-10 text-left bg-emerald-50/70 border border-emerald-200/60 rounded-xl p-3 mb-6 flex justify-between items-center">
+                <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider">UPI VPA</span>
+                <span className="font-mono font-bold text-emerald-900 text-xs sm:text-sm">mab.037326002330038@axisbank</span>
               </div>
 
               {/* Card Identifiers */}
