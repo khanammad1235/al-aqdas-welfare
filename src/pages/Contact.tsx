@@ -66,8 +66,8 @@ export default function Contact() {
                   <div>
                     <p className="text-sm font-bold text-slate-800 mb-1">Email Us</p>
                     <div className="flex flex-col gap-1">
-                      <a href="mailto:aawamiwelfare@gmail.com" className="text-sm text-slate-600 hover:text-emerald-600 transition-colors break-all">
-                        aawamiwelfare@gmail.com
+                      <a href="mailto:alaqdaswelfare@gmail.com" className="text-sm text-slate-600 hover:text-emerald-600 transition-colors break-all">
+                        alaqdaswelfare@gmail.com
                       </a>
                     </div>
                   </div>

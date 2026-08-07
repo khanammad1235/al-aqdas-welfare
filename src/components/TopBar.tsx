@@ -13,8 +13,8 @@ export default function TopBar() {
           </div>
           <div className="flex items-center gap-2">
             <Mail className="w-3.5 h-3.5 text-accent" />
-            <a href="mailto:aawamiwelfare@gmail.com" className="hover:text-accent transition-colors">
-              aawamiwelfare@gmail.com
+            <a href="mailto:alaqdaswelfare@gmail.com" className="hover:text-accent transition-colors">
+              alaqdaswelfare@gmail.com
             </a>
           </div>
           <div className="flex items-center gap-2">
@@ -27,10 +27,10 @@ export default function TopBar() {
         <div className="flex items-center gap-4">
           <span className="text-white/80">Follow Us:</span>
           <div className="flex items-center gap-3">
-            <a href="https://www.facebook.com/aqdaswelfareassociation/" target="_blank" rel="noopener noreferrer" className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center hover:bg-blue-700 transition-colors">
+            <a href="https://www.facebook.com/share/1Csm1nxUNh/" target="_blank" rel="noopener noreferrer" className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center hover:bg-blue-700 transition-colors">
               <Facebook className="w-3.5 h-3.5" />
             </a>
-            <a href="#" className="w-6 h-6 rounded-full bg-pink-600 flex items-center justify-center hover:bg-pink-700 transition-colors">
+            <a href="https://www.instagram.com/alaqdaswelfare?igsh=MXBrdjNwNGhraDJvbQ==" target="_blank" rel="noopener noreferrer" className="w-6 h-6 rounded-full bg-pink-600 flex items-center justify-center hover:bg-pink-700 transition-colors">
               <Instagram className="w-3.5 h-3.5" />
             </a>
             <a href="https://www.youtube.com/@aqdaswelfare2043" target="_blank" rel="noopener noreferrer" className="w-6 h-6 rounded-full bg-red-600 flex items-center justify-center hover:bg-red-700 transition-colors">

@@ -29,10 +29,10 @@ export default function Footer() {
               We are a non-profit organization dedicated to serving humanity through compassion, care and community development.
             </p>
             <div className="flex items-center gap-3">
-              <a href="https://www.facebook.com/aqdaswelfareassociation/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center hover:-translate-y-1 transition-transform">
+              <a href="https://www.facebook.com/share/1Csm1nxUNh/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center hover:-translate-y-1 transition-transform">
                 <Facebook className="w-4 h-4" />
               </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-pink-600 flex items-center justify-center hover:-translate-y-1 transition-transform">
+              <a href="https://www.instagram.com/alaqdaswelfare?igsh=MXBrdjNwNGhraDJvbQ==" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-pink-600 flex items-center justify-center hover:-translate-y-1 transition-transform">
                 <Instagram className="w-4 h-4" />
               </a>
               <a href="https://www.youtube.com/@aqdaswelfare2043" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center hover:-translate-y-1 transition-transform">
@@ -72,7 +72,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-3 text-sm text-white/80">
                 <Mail className="w-4 h-4 text-accent shrink-0 mt-0.5" />
-                <span className="break-all">aawamiwelfare@gmail.com</span>
+                <a href="mailto:alaqdaswelfare@gmail.com" className="break-all hover:text-accent transition-colors">alaqdaswelfare@gmail.com</a>
               </li>
               <li className="flex items-start gap-3 text-sm text-white/80">
                 <MapPin className="w-5 h-5 text-accent shrink-0 mt-0.5" />

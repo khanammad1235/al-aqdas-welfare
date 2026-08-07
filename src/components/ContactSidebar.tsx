@@ -46,7 +46,7 @@ export default function ContactSidebar() {
             <div>
               <p className="text-sm font-bold text-slate-800 mb-1">Email</p>
               <p className="text-sm text-slate-600 break-all">
-                aawamiwelfare@gmail.com
+                alaqdaswelfare@gmail.com
               </p>
             </div>
           </div>
