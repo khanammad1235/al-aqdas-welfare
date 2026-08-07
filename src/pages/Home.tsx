@@ -5,6 +5,7 @@ import {
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef, useCallback } from 'react'
+import DonationWidget from '../components/DonationWidget'
 
 /* ─── Data ─────────────────────────────────────────────────── */
 
@@ -43,44 +44,7 @@ const heroSlides = [
   },
 ]
 
-const carouselCauses = [
-  {
-    title: 'Ramadan Food Distribution',
-    desc: 'Providing essential food kits to families in need during the holy month of Ramadan.',
-    img: localGalleryPhotos[1] || 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700&h=420&fit=crop',
-    raised: 245000,
-    goal: 500000,
-    tag: 'Food Aid',
-    color: 'from-amber-500 to-amber-700',
-  },
-  {
-    title: 'Education for Needy Children',
-    desc: 'Scholarships, uniforms and school supplies for 500+ underprivileged students across Mumbai.',
-    img: localGalleryPhotos[5] || 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=700&h=420&fit=crop',
-    raised: 180000,
-    goal: 400000,
-    tag: 'Education',
-    color: 'from-emerald-500 to-emerald-700',
-  },
-  {
-    title: 'Winter Relief Blankets',
-    desc: 'Warm blankets and winter kits distributed to homeless families and elderly citizens.',
-    img: localGalleryPhotos[8] || 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=700&h=420&fit=crop',
-    raised: 90000,
-    goal: 200000,
-    tag: 'Disaster Relief',
-    color: 'from-sky-500 to-sky-700',
-  },
-  {
-    title: 'Free Medical Health Camps',
-    desc: 'Monthly camps providing free check-ups, medicines and specialist consultations.',
-    img: localGalleryPhotos[15] || 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=700&h=420&fit=crop',
-    raised: 135000,
-    goal: 300000,
-    tag: 'Healthcare',
-    color: 'from-rose-500 to-rose-700',
-  },
-]
+
 
 const stats = [
   { icon: Users,          value: 5000,  suffix: '+', label: 'Families Supported' },
@@ -471,152 +435,7 @@ function ProgramCard({ prog, idx }: { prog: typeof programs[0]; idx: number }) {
 
 
 
-function CausesCarousel({ active }: { active: boolean }) {
-  const [idx, setIdx] = useState(0)
-  const [animating, setAnimating] = useState(false)
-  const [direction, setDirection] = useState<'left' | 'right'>('right')
-  const [touchStart, setTouchStart] = useState<number | null>(null)
-  const [touchEnd, setTouchEnd] = useState<number | null>(null)
-  const total = carouselCauses.length
 
-  const go = useCallback((next: number, dir: 'left' | 'right') => {
-    if (animating) return
-    setDirection(dir)
-    setAnimating(true)
-    setTimeout(() => {
-      setIdx(next)
-      setAnimating(false)
-    }, 350)
-  }, [animating])
-
-  const prev = () => go((idx - 1 + total) % total, 'left')
-  const next = () => go((idx + 1) % total, 'right')
-
-  // Touch swipe logic for mobile
-  const minSwipeDistance = 40
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null)
-    setTouchStart(e.targetTouches[0].clientX)
-  }
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX)
-  }
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return
-    const distance = touchStart - touchEnd
-    const isLeftSwipe = distance > minSwipeDistance
-    const isRightSwipe = distance < -minSwipeDistance
-    if (isLeftSwipe) {
-      next()
-    } else if (isRightSwipe) {
-      prev()
-    }
-  }
-
-  // Auto-advance
-  useEffect(() => {
-    if (!active) return
-    const t = setInterval(() => go((idx + 1) % total, 'right'), 4000)
-    return () => clearInterval(t)
-  }, [active, idx, go, total])
-
-  const cause = carouselCauses[idx]
-
-  return (
-    <div
-      className="relative overflow-hidden rounded-2xl border border-white/10 bg-secondary/30 backdrop-blur-sm shadow-2xl select-none touch-pan-y"
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
-      {/* Image */}
-      <div className="relative h-52 overflow-hidden">
-        <img
-          key={idx}
-          src={cause.img}
-          alt={cause.title}
-          className={`w-full h-full object-cover transition-all duration-350 ${
-            animating
-              ? direction === 'right'
-                ? '-translate-x-full opacity-0'
-                : 'translate-x-full opacity-0'
-              : 'translate-x-0 opacity-100'
-          }`}
-          style={{ transition: 'transform 0.35s ease, opacity 0.35s ease' }}
-        />
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        {/* Tag badge */}
-        <span className={`absolute top-4 left-4 text-xs font-bold text-white px-3 py-1 rounded-full bg-gradient-to-r ${cause.color} shadow-md`}>
-          {cause.tag}
-        </span>
-        {/* Slide counter */}
-        <span className="absolute top-4 right-4 text-xs text-white/70 bg-black/30 backdrop-blur-sm px-2.5 py-1 rounded-full">
-          {idx + 1} / {total}
-        </span>
-        {/* Nav arrows on image */}
-        <button
-          onClick={prev}
-          className="absolute left-3 bottom-4 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center hover:bg-white/30 transition-colors"
-        >
-          <ChevronLeft className="w-4 h-4 text-white" />
-        </button>
-        <button
-          onClick={next}
-          className="absolute right-3 bottom-4 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center hover:bg-white/30 transition-colors"
-        >
-          <ChevronRight className="w-4 h-4 text-white" />
-        </button>
-      </div>
-
-      {/* Content */}
-      <div className="p-6">
-        <h3
-          key={`title-${idx}`}
-          className={`text-lg font-bold font-serif mb-2 transition-all duration-350 ${
-            animating ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'
-          }`}
-        >
-          {cause.title}
-        </h3>
-        <p
-          key={`desc-${idx}`}
-          className={`text-sm text-white/70 mb-5 leading-relaxed transition-all duration-350 delay-75 ${
-            animating ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'
-          }`}
-        >
-          {cause.desc}
-        </p>
-
-
-
-        <Link
-          to="/donation"
-          className="w-full flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 active:scale-95 text-white font-bold py-3 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
-        >
-          <Heart className="w-4 h-4 fill-current" />
-          DONATE TO THIS CAUSE
-        </Link>
-
-        {/* Dot indicators */}
-        <div className="flex items-center justify-center gap-2 mt-5">
-          {carouselCauses.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => go(i, i > idx ? 'right' : 'left')}
-              className={`rounded-full transition-all duration-300 ${
-                i === idx ? 'w-6 h-2 bg-accent' : 'w-2 h-2 bg-white/20 hover:bg-white/40'
-              }`}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
 
 /* ─── Main Component ────────────────────────────────────────── */
 
@@ -873,9 +692,9 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Causes Carousel */}
+            {/* Donation Money Widget */}
             <div className="lg:col-span-1">
-              <CausesCarousel active={causesInView} />
+              <DonationWidget theme="dark" defaultAmount="500" />
             </div>
 
           </div>
