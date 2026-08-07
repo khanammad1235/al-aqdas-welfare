@@ -43,9 +43,9 @@ export default function Donation() {
                 </div>
               </div>
 
-              <div className="w-full relative z-10 text-left bg-emerald-50/70 border border-emerald-200/60 rounded-xl p-3 mb-6 flex justify-between items-center">
-                <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider">UPI VPA</span>
-                <span className="font-mono font-bold text-emerald-900 text-xs sm:text-sm">mab.037326002330038@axisbank</span>
+              <div className="w-full relative z-10 text-left bg-emerald-50/70 border border-emerald-200/60 rounded-xl p-3 mb-6">
+                <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block mb-1">UPI VPA</span>
+                <span className="font-mono font-bold text-emerald-900 text-xs sm:text-sm break-all leading-snug">mab.037326002330038@axisbank</span>
               </div>
 
               {/* Card Identifiers */}
@@ -53,18 +53,18 @@ export default function Donation() {
                 <h3 className="text-xs font-bold text-slate-700 mb-3 uppercase tracking-wider border-b border-slate-200 pb-1.5">
                   Card Identifiers
                 </h3>
-                <div className="grid grid-cols-3 gap-3 text-center sm:text-left">
-                  <div>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase">Masterpass</p>
-                    <p className="font-mono font-semibold text-slate-800 text-xs">512260008173864</p>
+                <div className="flex flex-col gap-2.5">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-[10px] font-bold text-slate-400 uppercase flex-shrink-0 w-24">Masterpass</p>
+                    <p className="font-mono font-semibold text-slate-800 text-xs text-right break-all">512260008173864</p>
                   </div>
-                  <div>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase">RuPay</p>
-                    <p className="font-mono font-semibold text-slate-800 text-xs">6100020081738662</p>
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-[10px] font-bold text-slate-400 uppercase flex-shrink-0 w-24">RuPay</p>
+                    <p className="font-mono font-semibold text-slate-800 text-xs text-right break-all">6100020081738662</p>
                   </div>
-                  <div>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase">mVISA</p>
-                    <p className="font-mono font-semibold text-slate-800 text-xs">4604901081738651</p>
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-[10px] font-bold text-slate-400 uppercase flex-shrink-0 w-24">mVISA</p>
+                    <p className="font-mono font-semibold text-slate-800 text-xs text-right break-all">4604901081738651</p>
                   </div>
                 </div>
               </div>
