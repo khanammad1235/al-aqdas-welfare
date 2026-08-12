@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { useNavigate } from 'react-router'
 import { X, Heart, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 
 // Load gallery images (same source as Gallery page)
@@ -18,6 +19,7 @@ export default function WelcomeBanner() {
   const [visible, setVisible] = useState(false)
   const [closing, setClosing] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
+  const navigate = useNavigate()
 
   // Show banner once per browser session
   useEffect(() => {
@@ -166,14 +168,13 @@ export default function WelcomeBanner() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-3">
-            <a
-              href="/donation"
-              onClick={closeBanner}
+            <button
+              onClick={() => { closeBanner(); navigate('/donation') }}
               className="flex-1 flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 px-5 rounded-xl transition-all text-sm shadow-md hover:shadow-lg active:scale-95"
             >
               <Heart className="w-4 h-4 fill-current" />
               Donate Now
-            </a>
+            </button>
             <button
               onClick={closeBanner}
               className="flex-1 flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-5 rounded-xl transition-all text-sm active:scale-95"
