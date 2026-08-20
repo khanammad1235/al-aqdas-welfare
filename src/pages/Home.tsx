@@ -265,6 +265,8 @@ function HeroCarousel({ heroImgRef }: { heroImgRef: React.RefObject<HTMLDivEleme
 
   useEffect(() => {
     if (!isPlaying) return
+    const isMobile = window.innerWidth < 768 || ('ontouchstart' in window && window.innerWidth < 1024)
+    if (isMobile) return
     const interval = setInterval(nextSlide, 4500)
     return () => clearInterval(interval)
   }, [isPlaying, nextSlide])

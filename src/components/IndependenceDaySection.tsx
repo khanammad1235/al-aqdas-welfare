@@ -28,9 +28,14 @@ export default function IndependenceDaySection() {
     setCurrentIndex((prev) => (prev - 1 + totalPhotos) % totalPhotos)
   }, [totalPhotos])
 
-  // Auto-play slideshow every 3.5 seconds when not hovered/paused
+  // Auto-play slideshow every 3.5 seconds on desktop only (disabled on mobile screens < 768px)
   useEffect(() => {
     if (!isAutoPlaying || totalPhotos === 0 || isLightboxOpen) return
+
+    // Disable auto-play on mobile screens / touch devices
+    const isMobile = window.innerWidth < 768 || ('ontouchstart' in window && window.innerWidth < 1024)
+    if (isMobile) return
+
     const timer = setInterval(() => {
       nextSlide()
     }, 3500)
