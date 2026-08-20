@@ -6,6 +6,7 @@ import {
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import DonationWidget from '../components/DonationWidget'
+import IndependenceDaySection from '../components/IndependenceDaySection'
 
 /* ─── Data ─────────────────────────────────────────────────── */
 
@@ -655,6 +656,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ══════════════ INDEPENDENCE DAY CELEBRATION ══════════════ */}
+      <IndependenceDaySection />
 
       {/* ══════════════ CAUSES + DONATION ══════════════ */}
       <section className="bg-primary text-white py-20 relative overflow-hidden">
