@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {
-  X, ShieldCheck, Download, Printer, CheckCircle2,
-  FileText, Award, Building2, Calendar, Hash, User, Mail, CreditCard
+  X, ShieldCheck, Printer, CheckCircle2,
+  FileText, Award, Building2, Calendar, Hash, User, Mail, CreditCard, Copy, Check
 } from 'lucide-react'
 import { STATUTORY_CREDENTIALS } from '../data/ngoData'
 
@@ -36,20 +36,15 @@ export default function TaxReceiptModal({ isOpen, onClose, initialAmount = 2500 
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/75 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="relative w-full max-w-3xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden max-h-[92vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs">
+      <div className="relative w-full max-w-3xl bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden max-h-[92vh] flex flex-col">
         {/* Modal Top Bar */}
-        <div className="flex items-center justify-between px-6 py-4 bg-slate-900 text-white border-b border-slate-800">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400">
-              <Award className="w-4 h-4" />
-            </div>
+        <div className="flex items-center justify-between px-6 py-4 bg-slate-900 text-white">
+          <div className="flex items-center gap-2.5">
+            <Award className="w-5 h-5 text-emerald-400" />
             <div>
-              <h3 className="text-sm font-bold tracking-tight text-white flex items-center gap-2">
-                Instant 80G Tax Exemption Receipt Generator
-                <span className="px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 rounded-full">
-                  Section 80G IT Act
-                </span>
+              <h3 className="text-sm font-bold text-white">
+                80G Tax Exemption Receipt Verification
               </h3>
               <p className="text-[11px] text-slate-400">
                 Statutory certificate for 50% income tax deduction under Indian IT Act 1961
@@ -58,251 +53,246 @@ export default function TaxReceiptModal({ isOpen, onClose, initialAmount = 2500 
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Tab Controls */}
-        <div className="flex items-center justify-between px-6 py-2.5 bg-slate-50 border-b border-slate-200">
+        <div className="flex items-center justify-between px-6 py-2.5 bg-slate-50 border-b border-slate-200 text-xs">
           <div className="flex gap-2">
             <button
+              type="button"
               onClick={() => setActiveTab('preview')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+              className={`px-3 py-1.5 rounded font-semibold transition-colors ${
                 activeTab === 'preview'
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                  ? 'bg-white text-slate-900 border border-slate-300 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Verified Certificate Preview
+              Certificate Preview
             </button>
             <button
+              type="button"
               onClick={() => setActiveTab('form')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+              className={`px-3 py-1.5 rounded font-semibold transition-colors ${
                 activeTab === 'form'
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                  ? 'bg-white text-slate-900 border border-slate-300 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Edit Donor Particulars
+              Edit Donor Details
             </button>
           </div>
 
           <div className="flex items-center gap-2">
             <button
+              type="button"
               onClick={handlePrint}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-100 rounded-lg transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded font-semibold text-xs transition-colors"
             >
-              <Printer className="w-3.5 h-3.5 text-slate-500" />
-              Print / Save PDF
+              <Printer className="w-3.5 h-3.5" />
+              <span>Print / Save PDF</span>
             </button>
           </div>
         </div>
 
-        {/* Modal Scrollable Body */}
+        {/* Modal Body */}
         <div className="flex-1 overflow-y-auto p-6">
           {activeTab === 'form' ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto py-2">
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                  <User className="w-3.5 h-3.5 text-slate-400" /> Full Donor Name (As on PAN)
-                </label>
+            <div className="space-y-4 max-w-xl mx-auto">
+              <div className="p-3 bg-emerald-50 rounded border border-emerald-200 text-xs text-emerald-900">
+                Enter your details as per your PAN card to generate a valid Section 80G tax receipt for filing your income tax return.
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold text-slate-700 block mb-1">Donor Full Name (as on PAN)</label>
                 <input
                   type="text"
                   value={donorName}
                   onChange={(e) => setDonorName(e.target.value)}
-                  className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded focus:outline-none focus:ring-1 focus:ring-emerald-700"
                 />
               </div>
 
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                  <CreditCard className="w-3.5 h-3.5 text-slate-400" /> PAN Card Number (Mandatory for 80G)
-                </label>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs font-semibold text-slate-700 block mb-1">Permanent Account Number (PAN)</label>
+                  <input
+                    type="text"
+                    value={donorPan}
+                    onChange={(e) => setDonorPan(e.target.value.toUpperCase())}
+                    className="w-full px-3 py-2 text-xs font-mono uppercase border border-slate-300 rounded focus:outline-none focus:ring-1 focus:ring-emerald-700"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-slate-700 block mb-1">Donation Amount (INR)</label>
+                  <input
+                    type="number"
+                    value={amount}
+                    onChange={(e) => setAmount(Number(e.target.value))}
+                    className="w-full px-3 py-2 text-xs font-bold border border-slate-300 rounded focus:outline-none focus:ring-1 focus:ring-emerald-700"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs font-semibold text-slate-700 block mb-1">Email Address</label>
+                  <input
+                    type="email"
+                    value={donorEmail}
+                    onChange={(e) => setDonorEmail(e.target.value)}
+                    className="w-full px-3 py-2 text-xs border border-slate-300 rounded focus:outline-none focus:ring-1 focus:ring-emerald-700"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-slate-700 block mb-1">Mobile / WhatsApp Number</label>
+                  <input
+                    type="tel"
+                    value={donorPhone}
+                    onChange={(e) => setDonorPhone(e.target.value)}
+                    className="w-full px-3 py-2 text-xs border border-slate-300 rounded focus:outline-none focus:ring-1 focus:ring-emerald-700"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold text-slate-700 block mb-1">Program / Purpose of Donation</label>
                 <input
                   type="text"
-                  value={donorPan}
-                  onChange={(e) => setDonorPan(e.target.value.toUpperCase())}
-                  maxLength={10}
-                  className="w-full px-3 py-2 text-sm font-mono tracking-wider border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 uppercase"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                  <Mail className="w-3.5 h-3.5 text-slate-400" /> Donor Email Address
-                </label>
-                <input
-                  type="email"
-                  value={donorEmail}
-                  onChange={(e) => setDonorEmail(e.target.value)}
-                  className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700">Donation Amount (INR)</label>
-                <input
-                  type="number"
-                  value={amount}
-                  onChange={(e) => setAmount(Number(e.target.value))}
-                  className="w-full px-3 py-2 text-sm font-semibold border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                />
-              </div>
-
-              <div className="md:col-span-2 space-y-1.5">
-                <label className="text-xs font-bold text-slate-700">Purpose of Humanitarian Contribution</label>
-                <select
                   value={purpose}
                   onChange={(e) => setPurpose(e.target.value)}
-                  className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
-                >
-                  <option value="Community Nutrition & Educational Support">Community Nutrition & Educational Support</option>
-                  <option value="A.R. Siddique English School IT Lab Fund">A.R. Siddique English School IT Lab Fund</option>
-                  <option value="Free Medical Camp & Healthcare Relief">Free Medical Camp & Healthcare Relief</option>
-                  <option value="Ramadan Ration Kit Distribution 2026">Ramadan Ration Kit Distribution 2026</option>
-                  <option value="General Humanitarian Trust Corpus Fund">General Humanitarian Trust Corpus Fund</option>
-                </select>
+                  className="w-full px-3 py-2 text-xs border border-slate-300 rounded focus:outline-none focus:ring-1 focus:ring-emerald-700"
+                />
               </div>
 
-              <div className="md:col-span-2 pt-2">
+              <div className="pt-2">
                 <button
+                  type="button"
                   onClick={() => setActiveTab('preview')}
-                  className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold rounded"
                 >
-                  Generate & Preview 80G Certificate <CheckCircle2 className="w-4 h-4" />
+                  Generate & View Certificate
                 </button>
               </div>
             </div>
           ) : (
-            /* Official 80G Certificate Document Display */
-            <div className="bg-gradient-to-b from-amber-50/20 to-white border-2 border-emerald-800/30 rounded-xl p-6 sm:p-8 text-slate-800 relative shadow-inner">
-              {/* Decorative Corner Seals */}
-              <div className="absolute top-3 right-3 text-emerald-800/20 pointer-events-none">
-                <ShieldCheck className="w-24 h-24 stroke-[1]" />
-              </div>
-
+            /* Certificate Preview */
+            <div className="bg-white p-6 sm:p-8 rounded-lg border-2 border-slate-200 text-slate-800 space-y-5 print:border-none print:p-0">
               {/* Certificate Header */}
-              <div className="text-center pb-5 border-b border-emerald-900/15">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-[11px] font-bold uppercase tracking-wider mb-2">
-                  <ShieldCheck className="w-3.5 h-3.5" /> Official Section 80G Tax Exemption Receipt
+              <div className="text-center pb-4 border-b border-slate-200">
+                <div className="flex items-center justify-center gap-3 mb-2">
+                  <img
+                    src="/al-aqdas-logo.png"
+                    alt="Logo"
+                    className="w-12 h-12 object-contain"
+                  />
+                  <div className="text-left">
+                    <h2 className="text-base font-bold text-slate-900 leading-tight">
+                      AL AQDAS WELFARE ASSOCIATION
+                    </h2>
+                    <p className="text-[11px] text-slate-500">
+                      Regd. under the Bombay Public Trust Act 1950 • Regn No. F-46725 (BOM)
+                    </p>
+                  </div>
                 </div>
-                <h2 className="text-xl sm:text-2xl font-serif font-extrabold text-emerald-950 uppercase tracking-tight">
-                  Al Aqdas Welfare Association
-                </h2>
-                <p className="text-xs text-slate-600 font-medium mt-1">
-                  {STATUTORY_CREDENTIALS.registrationNo}
+
+                <p className="text-[11px] text-slate-500 max-w-md mx-auto">
+                  Registered Office: 1, Lidhar Shah Rd, Dana Bandar, Mandvi, Mumbai, Maharashtra 400009
                 </p>
-                <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] text-slate-500 font-mono mt-1.5">
-                  <span>DARPAN ID: <strong>{STATUTORY_CREDENTIALS.darpanId.split(' ')[0]}</strong></span>
-                  <span>•</span>
-                  <span>80G Unique Reg: <strong>{STATUTORY_CREDENTIALS.taxExemption.split('(')[1].replace(')', '')}</strong></span>
-                  <span>•</span>
-                  <span>PAN: <strong>{STATUTORY_CREDENTIALS.pan}</strong></span>
+
+                <div className="mt-3 inline-block px-3 py-1 bg-emerald-50 text-emerald-900 font-bold text-xs uppercase tracking-wider rounded border border-emerald-200">
+                  Form 10BE / Section 80G Official Tax Exemption Receipt
                 </div>
               </div>
 
-              {/* Certificate Metadata Strip */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 py-3 my-4 bg-slate-100/80 rounded-lg px-4 border border-slate-200 text-xs">
+              {/* Receipt Metadata */}
+              <div className="grid grid-cols-2 gap-4 text-xs py-2 bg-slate-50 p-3 rounded border border-slate-200">
                 <div>
-                  <span className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold block">Receipt Ref No.</span>
-                  <span className="font-mono font-bold text-slate-900">{receiptNumber}</span>
+                  <p className="text-slate-500">Certificate No:</p>
+                  <div className="flex items-center gap-1.5">
+                    <p className="font-mono font-bold text-slate-900">{receiptNumber}</p>
+                    <button
+                      type="button"
+                      onClick={handleCopyReceiptId}
+                      className="text-slate-400 hover:text-slate-700"
+                    >
+                      {isCopied ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                    </button>
+                  </div>
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold block">Date of Issuance</span>
-                  <span className="font-semibold text-slate-900">{currentDate}</span>
+                  <p className="text-slate-500">Date of Issue:</p>
+                  <p className="font-bold text-slate-900">{currentDate}</p>
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold block">Financial Year</span>
-                  <span className="font-mono font-bold text-slate-900">2026–2027</span>
+                  <p className="text-slate-500">Trust PAN:</p>
+                  <p className="font-mono font-bold text-slate-900">{STATUTORY_CREDENTIALS.pan}</p>
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold block">Payment Mode</span>
-                  <span className="font-semibold text-emerald-700">Digital / BharatQR / UPI</span>
+                  <p className="text-slate-500">80G Registration No:</p>
+                  <p className="font-mono font-bold text-slate-900">AAETA8194EF20214</p>
                 </div>
               </div>
 
-              {/* Certificate Main Body */}
-              <div className="space-y-3.5 text-xs sm:text-[13px] leading-relaxed text-slate-700">
+              {/* Donor Details Table */}
+              <div className="border border-slate-200 rounded overflow-hidden text-xs">
+                <table className="w-full border-collapse">
+                  <tbody>
+                    <tr className="border-b border-slate-200 bg-slate-50">
+                      <td className="p-2.5 font-bold text-slate-700 w-1/3">Donor Name:</td>
+                      <td className="p-2.5 font-semibold text-slate-900">{donorName}</td>
+                    </tr>
+                    <tr className="border-b border-slate-200">
+                      <td className="p-2.5 font-bold text-slate-700">Donor PAN:</td>
+                      <td className="p-2.5 font-mono font-bold text-slate-900">{donorPan}</td>
+                    </tr>
+                    <tr className="border-b border-slate-200 bg-slate-50">
+                      <td className="p-2.5 font-bold text-slate-700">Donation Amount:</td>
+                      <td className="p-2.5 font-bold text-emerald-800 text-sm">
+                        ₹{amount.toLocaleString('en-IN')} (Rupees {amount.toLocaleString('en-IN')} Only)
+                      </td>
+                    </tr>
+                    <tr className="border-b border-slate-200">
+                      <td className="p-2.5 font-bold text-slate-700">Payment Mode:</td>
+                      <td className="p-2.5 text-slate-900">UPI / Electronic Banking Transfer</td>
+                    </tr>
+                    <tr className="bg-slate-50">
+                      <td className="p-2.5 font-bold text-slate-700">Purpose / Head:</td>
+                      <td className="p-2.5 text-slate-900">{purpose}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Statutory Declarations */}
+              <div className="text-[11px] text-slate-500 leading-relaxed space-y-1 pt-2">
                 <p>
-                  Received with thanks from <strong>{donorName || 'Valued Donor'}</strong> (PAN:{' '}
-                  <span className="font-mono font-bold text-slate-900 bg-amber-100 px-1.5 py-0.5 rounded">
-                    {donorPan || 'PAN PENDING'}
-                  </span>
-                  ), the sum of{' '}
-                  <strong className="text-emerald-900 text-base font-serif">
-                    ₹{amount.toLocaleString('en-IN')}/-
-                  </strong>{' '}
-                  towards <em>{purpose}</em>.
+                  • Certified that this donation qualifies for deduction under Section 80G(5)(vi) of the Income Tax Act, 1961.
                 </p>
-
-                <div className="bg-emerald-50/70 border border-emerald-200/80 rounded-lg p-3 text-xs text-emerald-950">
-                  <div className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <div>
-                      <strong>Tax Exemption Declaration:</strong> Donations made to Al Aqdas Welfare Association are
-                      eligible for 50% deduction under Section 80G(5)(vi) of the Income Tax Act, 1961. This digital
-                      certificate complies with Form 10BE filing guidelines mandated by CBDT.
-                    </div>
-                  </div>
-                </div>
+                <p>
+                  • No goods or services of value were provided in consideration for this contribution.
+                </p>
               </div>
 
-              {/* Signatures & Seal */}
-              <div className="pt-6 mt-6 border-t border-slate-200 grid grid-cols-2 items-end">
+              {/* Signature Block */}
+              <div className="pt-6 border-t border-slate-200 flex items-end justify-between text-xs">
                 <div>
-                  <div className="w-20 h-20 rounded-full border-2 border-emerald-800/30 flex items-center justify-center p-1 text-center bg-emerald-50/50">
-                    <span className="text-[9px] font-bold text-emerald-900 leading-tight uppercase">
-                      Al Aqdas Welfare Association<br />Official Seal
-                    </span>
-                  </div>
-                  <p className="text-[10px] text-slate-500 mt-1">Authorized Digital Seal</p>
+                  <p className="font-bold text-slate-900">Mohammed Hasham Shaikh</p>
+                  <p className="text-slate-500">General Secretary / Authorized Signatory</p>
+                  <p className="text-[10px] text-slate-400">Al Aqdas Welfare Association</p>
                 </div>
 
-                <div className="text-right">
-                  <div className="inline-block text-center border-t border-slate-400 pt-1 w-48">
-                    <p className="text-xs font-bold text-slate-900">Mohammed Hasham Shaikh</p>
-                    <p className="text-[11px] text-slate-500">General Secretary / Trustee</p>
-                    <p className="text-[9px] text-emerald-700 font-mono mt-0.5">Digitally Verified & Valid</p>
-                  </div>
+                <div className="w-20 h-20 border border-slate-300 rounded flex items-center justify-center text-[10px] text-slate-400 text-center p-1">
+                  [Official Seal]
                 </div>
               </div>
             </div>
           )}
         </div>
-
-        {/* Modal Bottom Bar */}
-        <div className="px-6 py-3 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2 text-slate-500">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
-            <span>Ref: <strong className="font-mono text-slate-700">{receiptNumber}</strong></span>
-            <button
-              onClick={handleCopyReceiptId}
-              className="text-[11px] text-emerald-700 hover:underline font-semibold"
-            >
-              {isCopied ? 'Copied!' : 'Copy ID'}
-            </button>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              onClick={onClose}
-              className="px-4 py-2 border border-slate-300 rounded-lg font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
-            >
-              Close
-            </button>
-            <button
-              onClick={handlePrint}
-              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold transition-colors flex items-center gap-1.5 shadow-xs"
-            >
-              <Download className="w-3.5 h-3.5" />
-              Download Official Certificate
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   )
 }
-

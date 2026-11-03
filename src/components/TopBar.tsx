@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Mail, Phone, Clock, Facebook, Instagram, ShieldCheck, Award, FileText, CheckCircle2 } from 'lucide-react'
+import { Mail, Phone, Clock, Facebook, Instagram, ShieldCheck, FileText } from 'lucide-react'
 import { STATUTORY_CREDENTIALS } from '../data/ngoData'
 import TaxReceiptModal from './TaxReceiptModal'
 
@@ -8,65 +8,65 @@ export default function TopBar() {
 
   return (
     <>
-      <div className="bg-slate-950 text-white border-b border-slate-800 hidden md:block text-xs">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 flex items-center justify-between h-9">
+      <div className="bg-slate-900 text-slate-200 border-b border-slate-800 hidden md:block text-xs">
+        <div className="max-w-[1340px] mx-auto px-4 sm:px-6 flex items-center justify-between h-9">
           {/* Left: Contact info */}
-          <div className="flex items-center gap-5 text-[11.5px] font-medium text-slate-300">
-            <a href="tel:+919702794786" className="flex items-center gap-1.5 hover:text-emerald-400 transition-colors">
-              <Phone className="w-3 h-3 text-emerald-400" />
+          <div className="flex items-center gap-5 text-[12px] font-medium text-slate-300">
+            <a href="tel:+919702794786" className="flex items-center gap-1.5 hover:text-white transition-colors">
+              <Phone className="w-3.5 h-3.5 text-emerald-400" />
               +91 97027 94786
             </a>
-            <a href="mailto:alaqdaswelfare@gmail.com" className="flex items-center gap-1.5 hover:text-emerald-400 transition-colors">
-              <Mail className="w-3 h-3 text-emerald-400" />
+            <a href="mailto:alaqdaswelfare@gmail.com" className="flex items-center gap-1.5 hover:text-white transition-colors">
+              <Mail className="w-3.5 h-3.5 text-emerald-400" />
               alaqdaswelfare@gmail.com
             </a>
             <div className="flex items-center gap-1.5 text-slate-400">
-              <Clock className="w-3 h-3 text-emerald-400" />
-              Daily Field Ops: 10AM–6PM
+              <Clock className="w-3.5 h-3.5 text-slate-400" />
+              Office: Mon–Sat 10 AM – 6 PM
             </div>
           </div>
 
-          {/* Center: Real-time Institutional Verification Badge */}
-          <div className="hidden xl:flex items-center gap-3 text-[11px] font-medium text-slate-300">
-            <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-              <span>Verified 80G Tax-Exempt NGO</span>
-            </span>
-            <span className="text-slate-500">•</span>
-            <span className="text-slate-400">Darpan: <strong className="text-slate-200">MH/2015/009124</strong></span>
-            <span className="text-slate-500">•</span>
-            <span className="text-slate-400">Trust Reg: <strong className="text-slate-200">F-46725 (BOM)</strong></span>
+          {/* Center: Legal registrations */}
+          <div className="hidden lg:flex items-center gap-2 text-[11px] text-slate-300">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Regd. Public Charitable Trust F-46725 (BOM)</span>
+            <span className="text-slate-600">•</span>
+            <span>DARPAN: MH/2015/009124</span>
+            <span className="text-slate-600">•</span>
+            <span>80G Tax-Exempt</span>
           </div>
 
-          {/* Right: Quick 80G Receipt & Social links */}
+          {/* Right: 80G Quick Link & Social */}
           <div className="flex items-center gap-4">
             <button
               type="button"
               onClick={() => setReceiptModalOpen(true)}
-              className="flex items-center gap-1 text-[11px] font-bold text-emerald-400 hover:text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/30 transition-all"
+              className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-200 hover:text-white bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded transition-colors"
             >
-              <FileText className="w-3 h-3" />
-              Generate 80G Receipt
+              <FileText className="w-3 h-3 text-emerald-400" />
+              <span>Tax Exemption (80G)</span>
             </button>
 
-            <div className="h-3.5 w-px bg-slate-800" />
+            <div className="h-3.5 w-px bg-slate-700" />
 
             <div className="flex items-center gap-2">
               <a
                 href="https://www.facebook.com/share/1Csm1nxUNh/"
-                target="_blank" rel="noopener noreferrer"
-                className="w-5 h-5 rounded-full bg-slate-800 hover:bg-blue-600 flex items-center justify-center transition-colors text-white"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-5 h-5 rounded bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors text-slate-300 hover:text-white"
                 title="Facebook"
               >
-                <Facebook className="w-2.5 h-2.5" />
+                <Facebook className="w-3 h-3" />
               </a>
               <a
                 href="https://www.instagram.com/alaqdaswelfare?igsh=MXBrdjNwNGhraDJvbQ=="
-                target="_blank" rel="noopener noreferrer"
-                className="w-5 h-5 rounded-full bg-slate-800 hover:bg-pink-600 flex items-center justify-center transition-colors text-white"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-5 h-5 rounded bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors text-slate-300 hover:text-white"
                 title="Instagram"
               >
-                <Instagram className="w-2.5 h-2.5" />
+                <Instagram className="w-3 h-3" />
               </a>
             </div>
           </div>

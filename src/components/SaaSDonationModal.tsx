@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {
   X, Heart, ShieldCheck, QrCode, Smartphone, Copy, Check,
-  ExternalLink, Sparkles, Award, ArrowRight
+  ExternalLink, ArrowRight
 } from 'lucide-react'
 import { CAMPAIGNS, STATUTORY_CREDENTIALS } from '../data/ngoData'
 
@@ -33,7 +33,6 @@ export default function SaaSDonationModal({
   const activeAmount = customAmount ? Number(customAmount) : amount
   const selectedCampaign = CAMPAIGNS.find((c) => c.id === selectedCampaignId) || CAMPAIGNS[0]
 
-  // Dynamic UPI URI with custom note
   const upiNote = `Donation to Al Aqdas - ${selectedCampaign.title.slice(0, 30)}`
   const upiDeepLink = `upi://pay?pa=${encodeURIComponent(
     STATUTORY_CREDENTIALS.upiVpa
@@ -41,8 +40,7 @@ export default function SaaSDonationModal({
     STATUTORY_CREDENTIALS.ngoName
   )}&am=${activeAmount}&cu=INR&tn=${encodeURIComponent(upiNote)}`
 
-  // Dynamic QR code API
-  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=8&data=${encodeURIComponent(
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data=${encodeURIComponent(
     upiDeepLink
   )}`
 
@@ -52,233 +50,154 @@ export default function SaaSDonationModal({
     setTimeout(() => setCopiedVpa(false), 2000)
   }
 
-  const handleOpenUpiApp = () => {
-    window.location.href = upiDeepLink
-  }
-
   const presetAmounts = [500, 1000, 2500, 5000, 10000]
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden max-h-[94vh] flex flex-col">
-        {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 bg-slate-900 text-white border-b border-slate-800">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400">
-              <Heart className="w-4 h-4 fill-current" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs">
+      <div className="relative w-full max-w-xl bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden max-h-[92vh] flex flex-col">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-white">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-800 flex items-center justify-center">
+              <Heart className="w-4 h-4 fill-current text-emerald-700" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                Humanitarian Contribution Gateway
-                <span className="px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 rounded-full">
-                  Direct Field Deployment
-                </span>
+              <h3 className="text-base font-bold text-slate-900">
+                Support Al Aqdas Welfare Association
               </h3>
-              <p className="text-[11px] text-slate-400">
-                100% direct-to-cause disbursement · 80G Tax Exemption Eligible
+              <p className="text-xs text-slate-500">
+                100% direct-to-cause disbursement • 80G Tax-Exempt
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded text-slate-400 hover:text-slate-600 hover:bg-slate-100 flex items-center justify-center transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Modal Body */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          {/* Initiative Dedicated Selector */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-5">
+          {/* Cause Selector */}
           <div>
             <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-1.5">
-              Select Dedicated Humanitarian Mission
+              Select Cause:
             </label>
             <select
               value={selectedCampaignId}
               onChange={(e) => setSelectedCampaignId(e.target.value)}
-              className="w-full px-3 py-2 text-xs font-semibold border border-slate-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 text-xs font-semibold border border-slate-300 rounded-lg bg-white focus:outline-none focus:ring-1 focus:ring-emerald-700"
             >
               {CAMPAIGNS.map((c) => (
                 <option key={c.id} value={c.id}>
-                  {c.title} (Goal: ₹{(c.goal / 100000).toFixed(1)}L)
+                  {c.title}
                 </option>
               ))}
             </select>
           </div>
 
-          {/* Frequency & Amount Selectors */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-1.5">
-                Giving Frequency
-              </label>
-              <div className="grid grid-cols-2 gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200">
-                <button
-                  type="button"
-                  onClick={() => setFrequency('one-time')}
-                  className={`py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                    frequency === 'one-time'
-                      ? 'bg-white text-slate-900 shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  One-Time
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setFrequency('monthly')}
-                  className={`py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-1 ${
-                    frequency === 'monthly'
-                      ? 'bg-white text-slate-900 shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  <Sparkles className="w-3 h-3 text-amber-500" />
-                  Monthly
-                </button>
-              </div>
-            </div>
-
-            <div>
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-1.5">
-                Amount ({frequency === 'monthly' ? '₹ / Month' : '₹ One-Time'})
-              </label>
-              <div className="relative">
-                <span className="absolute left-3 top-2 text-sm font-bold text-slate-400">₹</span>
-                <input
-                  type="number"
-                  value={activeAmount}
-                  onChange={(e) => {
-                    setCustomAmount(e.target.value)
-                    setAmount(Number(e.target.value))
-                  }}
-                  className="w-full pl-7 pr-3 py-1.5 text-sm font-bold border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Presets */}
+          {/* Amount Presets */}
           <div>
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
-              Quick Preset Grants
-            </span>
-            <div className="grid grid-cols-5 gap-2">
-              {presetAmounts.map((val) => (
+            <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-1.5">
+              Select Donation Amount:
+            </label>
+            <div className="grid grid-cols-5 gap-1.5 mb-2">
+              {presetAmounts.map((p) => (
                 <button
-                  key={val}
+                  key={p}
                   type="button"
                   onClick={() => {
-                    setAmount(val)
+                    setAmount(p)
                     setCustomAmount('')
                   }}
-                  className={`py-1.5 text-xs font-bold rounded-lg border transition-all ${
-                    amount === val && !customAmount
-                      ? 'bg-emerald-50 border-emerald-500 text-emerald-800'
-                      : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                  className={`py-2 text-xs font-semibold rounded border transition-colors ${
+                    activeAmount === p && !customAmount
+                      ? 'bg-emerald-50 border-emerald-700 text-emerald-900 font-bold'
+                      : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
                   }`}
                 >
-                  ₹{val.toLocaleString('en-IN')}
+                  ₹{p.toLocaleString('en-IN')}
                 </button>
               ))}
             </div>
+
+            <div className="relative mt-2">
+              <span className="absolute left-3 top-2.5 text-xs font-bold text-slate-400">₹</span>
+              <input
+                type="number"
+                placeholder="Or enter custom amount in INR"
+                value={customAmount}
+                onChange={(e) => setCustomAmount(e.target.value)}
+                className="w-full pl-7 pr-3 py-2 text-xs font-medium border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-emerald-700"
+              />
+            </div>
           </div>
 
-          {/* Dynamic UPI Payment Console (Bento) */}
-          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5">
-            <div className="flex flex-col sm:flex-row items-center gap-6">
-              {/* Dynamic QR Code */}
-              <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm shrink-0 flex flex-col items-center">
-                <img
-                  src={qrCodeUrl}
-                  alt="Dynamic Donation QR Code"
-                  className="w-40 h-40 object-contain rounded-lg"
-                />
-                <span className="text-[10px] font-mono text-slate-400 mt-2">
-                  Dynamic UPI QR · ₹{activeAmount}
-                </span>
+          {/* UPI Direct QR Code Box */}
+          <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-center gap-5">
+            <div className="w-36 h-36 bg-white p-2 rounded-lg border border-slate-200 shadow-2xs shrink-0 flex items-center justify-center">
+              <img
+                src={qrCodeUrl}
+                alt="Donation UPI QR Code"
+                className="w-full h-full object-contain"
+              />
+            </div>
+
+            <div className="flex-1 text-center sm:text-left space-y-2">
+              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 text-[11px] font-semibold border border-emerald-200">
+                <QrCode className="w-3 h-3" /> Scan with Any UPI App
               </div>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Scan using Google Pay, PhonePe, Paytm, BHIM, or your mobile banking app.
+              </p>
 
-              {/* Instructions & Mobile Intent */}
-              <div className="flex-1 space-y-3.5 text-center sm:text-left">
-                <div>
-                  <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 uppercase">
-                    Scan with any UPI App
-                  </span>
-                  <h4 className="text-sm font-bold text-slate-900 mt-1">
-                    GPay · PhonePe · Paytm · BHIM · Axis
-                  </h4>
-                  <p className="text-xs text-slate-500 mt-1">
-                    Instant zero-fee transfer directly to the official Al Aqdas NGO trust account.
-                  </p>
+              {/* UPI ID Copy Box */}
+              <div className="flex items-center gap-1.5 pt-1">
+                <div className="flex-1 px-2.5 py-1.5 bg-white border border-slate-300 rounded text-xs font-mono text-slate-800 truncate">
+                  {STATUTORY_CREDENTIALS.upiVpa}
                 </div>
-
-                {/* UPI VPA Copy Bar */}
-                <div className="bg-white p-2.5 rounded-xl border border-slate-200 flex items-center justify-between gap-2">
-                  <div className="text-left">
-                    <span className="text-[9px] uppercase font-bold text-slate-400 block">Official UPI VPA</span>
-                    <span className="font-mono text-xs font-bold text-slate-800 select-all">
-                      {STATUTORY_CREDENTIALS.upiVpa}
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={handleCopyVpa}
-                    className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors flex items-center gap-1 shrink-0"
-                  >
-                    {copiedVpa ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copiedVpa ? 'Copied' : 'Copy'}</span>
-                  </button>
-                </div>
-
-                {/* Mobile Direct Pay Button */}
                 <button
                   type="button"
-                  onClick={handleOpenUpiApp}
-                  className="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition-all shadow-xs flex items-center justify-center gap-2"
+                  onClick={handleCopyVpa}
+                  className="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-semibold rounded flex items-center gap-1 transition-colors shrink-0"
                 >
-                  <Smartphone className="w-4 h-4" />
-                  Pay ₹{activeAmount.toLocaleString('en-IN')} via Installed UPI App
+                  {copiedVpa ? <Check className="w-3 h-3 text-emerald-700" /> : <Copy className="w-3 h-3" />}
+                  <span>{copiedVpa ? 'Copied' : 'Copy'}</span>
                 </button>
               </div>
             </div>
           </div>
 
-          {/* 80G Receipt CTA in Modal */}
-          <div className="p-3.5 rounded-xl bg-slate-900 text-white flex items-center justify-between gap-3 text-xs">
-            <div className="flex items-center gap-2">
-              <Award className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>Need your Section 80G Tax Exemption Certificate right away?</span>
-            </div>
-            <button
-              type="button"
-              onClick={() => {
-                onClose()
-                if (onOpenReceipt) onOpenReceipt()
-              }}
-              className="text-xs font-bold text-emerald-400 hover:text-emerald-300 underline whitespace-nowrap"
-            >
-              Generate Receipt &rarr;
-            </button>
+          {/* Bank Transfer Details Box */}
+          <div className="p-3.5 bg-slate-50 rounded-lg border border-slate-200 text-xs space-y-1">
+            <p className="font-bold text-slate-800">Direct Bank Account Transfer (NEFT / RTGS / IMPS):</p>
+            <p className="text-slate-600">Bank: <strong className="text-slate-800">{STATUTORY_CREDENTIALS.bankName}</strong> ({STATUTORY_CREDENTIALS.branch} Branch)</p>
+            <p className="text-slate-600">Account No: <strong className="text-slate-800 font-mono">{STATUTORY_CREDENTIALS.accountNo}</strong> | IFSC: <strong className="text-slate-800 font-mono">{STATUTORY_CREDENTIALS.ifsc}</strong></p>
           </div>
-        </div>
 
-        {/* Modal Footer */}
-        <div className="px-6 py-3 bg-slate-100 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
-          <span className="flex items-center gap-1">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-            Merchant ID: {STATUTORY_CREDENTIALS.merchantId}
-          </span>
-          <button
-            onClick={onClose}
-            className="px-4 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900"
-          >
-            Done
-          </button>
+          {/* 80G Note */}
+          <div className="flex items-center justify-between text-xs text-slate-500 pt-2 border-t border-slate-100">
+            <div className="flex items-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <span>Section 80G Tax Exemption Eligible</span>
+            </div>
+            {onOpenReceipt && (
+              <button
+                type="button"
+                onClick={() => {
+                  onClose()
+                  onOpenReceipt()
+                }}
+                className="text-emerald-800 font-semibold hover:underline"
+              >
+                Claim 80G Tax Receipt →
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
   )
 }
-

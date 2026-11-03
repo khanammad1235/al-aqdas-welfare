@@ -11,15 +11,13 @@ import Donation from './pages/Donation'
 import Contact from './pages/Contact'
 import Documents from './pages/Documents'
 import TopBar from './components/TopBar'
-import WelcomeBanner from './components/WelcomeBanner'
 import WhatsAppButton from './components/WhatsAppButton'
 import BackToTop from './components/BackToTop'
 import CookieConsent from './components/CookieConsent'
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col font-sans bg-background">
-      <WelcomeBanner />
+    <div className="min-h-screen flex flex-col font-sans bg-white text-slate-900">
       <TopBar />
       <Header />
       <main className="flex-1">

@@ -1,8 +1,5 @@
 import { useState } from 'react'
-import {
-  Users, Calendar, Clock, MapPin, CheckCircle2,
-  ArrowRight, Sparkles, Building2, Shield, HeartHandshake
-} from 'lucide-react'
+import { Users, Calendar, Clock, MapPin, CheckCircle2, ArrowRight } from 'lucide-react'
 import { UPCOMING_SHIFTS, type VolunteerShift } from '../data/ngoData'
 
 export default function VolunteerPortalSection() {
@@ -21,26 +18,25 @@ export default function VolunteerPortalSection() {
   }
 
   return (
-    <section className="py-16 sm:py-20 bg-white" id="volunteer-portal">
-      <div className="max-w-[1300px] mx-auto px-4 sm:px-6">
+    <section className="py-14 sm:py-18 bg-slate-50 border-b border-slate-200" id="volunteer-portal">
+      <div className="max-w-[1340px] mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-900 border border-blue-200 mb-3">
-              <Users className="w-3.5 h-3.5 text-blue-600" /> Ground Force & Corporate CSR Matching
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold font-serif text-slate-900 tracking-tight">
-              Join The Ground Operations Force
+            <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded">
+              Get Involved
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mt-2">
+              Volunteer With Our Mumbai Ground Team
             </h2>
-            <p className="text-slate-600 text-sm max-w-2xl mt-2 leading-relaxed">
-              We coordinate over 1,000 active volunteers across community kitchens, medical camps,
-              and classrooms. Select a shift, register your attendance, and log certified humanitarian service hours.
+            <p className="text-slate-600 text-sm max-w-2xl mt-1 leading-relaxed">
+              Join dedicated community volunteers across our food distribution drives, weekend digital classes, and medical camps.
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="px-3 py-1.5 text-xs font-semibold rounded-xl bg-slate-100 text-slate-700 border border-slate-200">
-              1,000+ Registered Volunteers
+          <div className="flex items-center gap-2">
+            <span className="px-3 py-1.5 text-xs font-semibold rounded bg-white text-slate-700 border border-slate-200 shadow-2xs">
+              1,000+ Active Volunteers
             </span>
           </div>
         </div>
@@ -49,28 +45,27 @@ export default function VolunteerPortalSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {UPCOMING_SHIFTS.map((shift) => {
             const slotsLeft = shift.slotsTotal - shift.slotsFilled
-            const fillPercentage = Math.round((shift.slotsFilled / shift.slotsTotal) * 100)
 
             return (
               <div
                 key={shift.id}
-                className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-lg hover:border-slate-300 transition-all flex flex-col justify-between"
+                className="bg-white rounded-lg border border-slate-200 p-5 shadow-xs hover:border-slate-300 transition-colors flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-slate-100 text-slate-800 uppercase tracking-wider">
+                    <span className="px-2 py-0.5 text-[10px] font-bold rounded bg-slate-100 text-slate-700 uppercase tracking-wider">
                       {shift.category}
                     </span>
-                    <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
+                    <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded">
                       {slotsLeft} slots remaining
                     </span>
                   </div>
 
-                  <h3 className="font-bold text-base text-slate-900 leading-snug">
+                  <h3 className="font-bold text-sm text-slate-900 leading-snug">
                     {shift.title}
                   </h3>
 
-                  <div className="space-y-2 mt-4 text-xs text-slate-600">
+                  <div className="space-y-1.5 mt-3 text-xs text-slate-600">
                     <div className="flex items-center gap-2">
                       <Calendar className="w-3.5 h-3.5 text-slate-400" />
                       <span>{shift.date}</span>
@@ -85,14 +80,13 @@ export default function VolunteerPortalSection() {
                     </div>
                   </div>
 
-                  {/* Requirements Pills */}
                   <div className="mt-4 pt-3 border-t border-slate-100">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
-                      Requirements
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {shift.requirements.map((req) => (
-                        <span key={req} className="px-2 py-0.5 text-[10px] font-medium bg-slate-50 text-slate-600 rounded-md border border-slate-100">
+                    <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+                      Requirements:
+                    </p>
+                    <div className="flex flex-wrap gap-1">
+                      {shift.requirements.map((req, i) => (
+                        <span key={i} className="text-[11px] bg-slate-50 text-slate-600 px-2 py-0.5 rounded border border-slate-200">
                           {req}
                         </span>
                       ))}
@@ -100,23 +94,17 @@ export default function VolunteerPortalSection() {
                   </div>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-100">
-                  {/* Slots Progress Bar */}
-                  <div className="flex items-center justify-between text-[11px] text-slate-500 mb-1.5">
-                    <span>Crew Roster</span>
-                    <span className="font-mono font-semibold">{shift.slotsFilled}/{shift.slotsTotal} filled</span>
-                  </div>
-                  <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden mb-4">
-                    <div className="h-full bg-slate-900 rounded-full" style={{ width: `${fillPercentage}%` }} />
-                  </div>
+                <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <span className="text-xs text-slate-500">
+                    Lead: <strong className="text-slate-700">{shift.lead}</strong>
+                  </span>
 
                   <button
                     type="button"
                     onClick={() => setSelectedShift(shift)}
-                    className="w-full py-2.5 px-4 bg-slate-900 hover:bg-emerald-700 text-white font-semibold text-xs rounded-xl transition-all flex items-center justify-center gap-1.5"
+                    className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded transition-colors"
                   >
-                    <HeartHandshake className="w-3.5 h-3.5" />
-                    RSVP for This Shift
+                    Register Shift
                   </button>
                 </div>
               </div>
@@ -124,108 +112,80 @@ export default function VolunteerPortalSection() {
           })}
         </div>
 
-        {/* Corporate CSR Matching Banner */}
-        <div className="mt-10 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400 shrink-0">
-              <Building2 className="w-6 h-6" />
-            </div>
-            <div>
-              <h4 className="text-base font-bold text-white">
-                Corporate CSR & Employee Volunteering Partnerships
-              </h4>
-              <p className="text-xs text-slate-300 mt-1 max-w-xl">
-                Al Aqdas is eligible for Schedule VII Corporate Social Responsibility (CSR) funding.
-                We provide corporate impact dashboards, audited compliance reports, and organized group volunteering drives.
+        {/* RSVP Modal */}
+        {selectedShift && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+            <div className="bg-white rounded-xl shadow-xl border border-slate-200 p-6 max-w-md w-full">
+              <h3 className="text-base font-bold text-slate-900 mb-1">
+                Volunteer Registration
+              </h3>
+              <p className="text-xs text-slate-500 mb-4">
+                Shift: <strong>{selectedShift.title}</strong>
               </p>
-            </div>
-          </div>
-          <a
-            href="mailto:alaqdaswelfare@gmail.com?subject=Corporate%20CSR%20Partnership"
-            className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-xl transition-all whitespace-nowrap"
-          >
-            Inquire for Corporate CSR
-          </a>
-        </div>
-      </div>
 
-      {/* RSVP Modal */}
-      {selectedShift && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-md">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200">
-            {rsvpSuccess ? (
-              <div className="text-center py-6">
-                <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3">
-                  <CheckCircle2 className="w-6 h-6" />
+              {rsvpSuccess ? (
+                <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200 text-center">
+                  <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto mb-2" />
+                  <p className="text-sm font-bold text-emerald-900">Shift Confirmed!</p>
+                  <p className="text-xs text-emerald-700 mt-1">Our team lead will reach out to you via WhatsApp before the drive.</p>
                 </div>
-                <h4 className="text-lg font-bold text-slate-900">Shift Confirmed!</h4>
-                <p className="text-xs text-slate-600 mt-1">
-                  You are registered for <strong>{selectedShift.title}</strong>. A confirmation has been logged with field lead {selectedShift.lead}.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleRsvpSubmit}>
-                <h4 className="text-base font-bold text-slate-900 mb-1">
-                  Volunteer Shift Registration
-                </h4>
-                <p className="text-xs text-slate-500 mb-4">{selectedShift.title} · {selectedShift.date}</p>
-
-                <div className="space-y-3">
+              ) : (
+                <form onSubmit={handleRsvpSubmit} className="space-y-3">
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Full Name</label>
+                    <label className="text-xs font-semibold text-slate-700 block mb-1">Full Name</label>
                     <input
                       required
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="e.g. Ayesha Patel"
-                      className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      placeholder="e.g. Aamir Khan"
+                      className="w-full px-3 py-2 text-xs border border-slate-300 rounded focus:ring-1 focus:ring-emerald-600 focus:outline-none"
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">WhatsApp / Phone Number</label>
+                    <label className="text-xs font-semibold text-slate-700 block mb-1">WhatsApp / Phone Number</label>
                     <input
                       required
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+91 98765 43210"
-                      className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full px-3 py-2 text-xs border border-slate-300 rounded focus:ring-1 focus:ring-emerald-600 focus:outline-none"
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Email Address</label>
+                    <label className="text-xs font-semibold text-slate-700 block mb-1">Email Address</label>
                     <input
                       required
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="ayesha@example.com"
-                      className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      placeholder="name@example.com"
+                      className="w-full px-3 py-2 text-xs border border-slate-300 rounded focus:ring-1 focus:ring-emerald-600 focus:outline-none"
                     />
                   </div>
-                </div>
 
-                <div className="mt-5 flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedShift(null)}
-                    className="flex-1 py-2 text-xs font-semibold text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="flex-1 py-2 text-xs font-bold text-white bg-emerald-600 rounded-lg hover:bg-emerald-700"
-                  >
-                    Confirm Attendance
-                  </button>
-                </div>
-              </form>
-            )}
+                  <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedShift(null)}
+                      className="px-3.5 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold rounded"
+                    >
+                      Confirm Attendance
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </section>
   )
 }
