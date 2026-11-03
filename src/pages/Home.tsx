@@ -10,7 +10,6 @@ import LiveCampaignsSection from '../components/LiveCampaignsSection'
 import ImpactCalculator from '../components/ImpactCalculator'
 import FinancialTransparencySection from '../components/FinancialTransparencySection'
 import LiveDispatchesFeed from '../components/LiveDispatchesFeed'
-import VolunteerPortalSection from '../components/VolunteerPortalSection'
 import IndependenceDaySection from '../components/IndependenceDaySection'
 import SaaSDonationModal from '../components/SaaSDonationModal'
 import TaxReceiptModal from '../components/TaxReceiptModal'
@@ -198,9 +197,6 @@ export default function Home() {
 
       {/* Independence Day & Community Flagship */}
       <IndependenceDaySection />
-
-      {/* Volunteer Opportunities */}
-      <VolunteerPortalSection />
 
       {/* Verified Beneficiary Testimonials */}
       <section className="py-14 sm:py-18 bg-white border-b border-slate-200">

@@ -78,34 +78,6 @@ export default function SaaSHero({ onOpenDonate, onOpenReceipt }: SaaSHeroProps)
                 <span>Download 80G Tax Receipt</span>
               </button>
             </div>
-
-            {/* Institutional Metrics Strip */}
-            <div className="pt-6 border-t border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div>
-                <p className="text-2xl sm:text-3xl font-bold text-slate-900">
-                  ₹2.4 Cr<span className="text-emerald-700 text-xl">+</span>
-                </p>
-                <p className="text-xs text-slate-500 font-medium mt-0.5">Aid Distributed</p>
-              </div>
-              <div>
-                <p className="text-2xl sm:text-3xl font-bold text-slate-900">
-                  50,000<span className="text-emerald-700 text-xl">+</span>
-                </p>
-                <p className="text-xs text-slate-500 font-medium mt-0.5">Meals Cooked & Served</p>
-              </div>
-              <div>
-                <p className="text-2xl sm:text-3xl font-bold text-slate-900">
-                  500<span className="text-emerald-700 text-xl">+</span>
-                </p>
-                <p className="text-xs text-slate-500 font-medium mt-0.5">Students in School</p>
-              </div>
-              <div>
-                <p className="text-2xl sm:text-3xl font-bold text-slate-900">
-                  89.2<span className="text-emerald-700 text-xl">%</span>
-                </p>
-                <p className="text-xs text-slate-500 font-medium mt-0.5">Direct Program Ratio</p>
-              </div>
-            </div>
           </div>
 
           {/* Right Column: Giving Card */}

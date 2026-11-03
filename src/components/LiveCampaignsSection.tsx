@@ -61,8 +61,6 @@ export default function LiveCampaignsSection({ onDonateToCampaign }: LiveCampaig
         {/* Campaign Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCampaigns.map((camp) => {
-            const percentage = Math.min(100, Math.round((camp.raised / camp.goal) * 100))
-
             return (
               <div
                 key={camp.id}
@@ -103,34 +101,12 @@ export default function LiveCampaignsSection({ onDonateToCampaign }: LiveCampaig
                     </p>
                   </div>
 
-                  {/* Funding Progress Bar */}
+                  {/* Action CTA */}
                   <div className="mt-5 pt-4 border-t border-slate-100">
-                    <div className="flex items-center justify-between text-xs mb-1.5 font-medium">
-                      <span className="text-slate-900 font-bold">
-                        ₹{(camp.raised / 100000).toFixed(2)}L
-                        <span className="text-slate-500 font-normal"> raised</span>
-                      </span>
-                      <span className="text-slate-600">
-                        {percentage}% of ₹{(camp.goal / 100000).toFixed(1)}L
-                      </span>
-                    </div>
-
-                    <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                      <div
-                        className="bg-emerald-600 h-full rounded-full transition-all duration-300"
-                        style={{ width: `${percentage}%` }}
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 mt-2">
-                      <span>{camp.donorsCount} supporters</span>
-                      <span>{camp.daysLeft} days remaining</span>
-                    </div>
-
                     <button
                       type="button"
                       onClick={() => onDonateToCampaign && onDonateToCampaign(camp)}
-                      className="w-full mt-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold rounded transition-colors flex items-center justify-center gap-1.5"
+                      className="w-full py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold rounded transition-colors flex items-center justify-center gap-1.5"
                     >
                       <Heart className="w-3.5 h-3.5 fill-current text-emerald-200" />
                       <span>Support This Cause</span>
