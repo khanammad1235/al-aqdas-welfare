@@ -12,6 +12,9 @@ import Contact from './pages/Contact'
 import Documents from './pages/Documents'
 import TopBar from './components/TopBar'
 import WelcomeBanner from './components/WelcomeBanner'
+import WhatsAppButton from './components/WhatsAppButton'
+import BackToTop from './components/BackToTop'
+import CookieConsent from './components/CookieConsent'
 
 export default function App() {
   return (
@@ -33,6 +36,11 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+
+      {/* Global UI Elements */}
+      <WhatsAppButton />
+      <BackToTop />
+      <CookieConsent />
     </div>
   )
 }
