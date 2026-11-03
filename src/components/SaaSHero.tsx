@@ -37,33 +37,33 @@ export default function SaaSHero({ onOpenDonate, onOpenReceipt }: SaaSHeroProps)
   const activePreset = impactPresets.find((p) => p.amount === selectedAmount) || impactPresets[1]
 
   return (
-    <section className="relative bg-slate-50 border-b border-slate-200 py-12 lg:py-16">
+    <section className="relative bg-slate-50 border-b border-slate-200 py-8 sm:py-12 lg:py-16">
       <div className="max-w-[1340px] mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Column: Mission & Institutional Credibility */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-900">
-              <ShieldCheck className="w-4 h-4 text-emerald-700" />
-              <span>Regd. Public Charitable Trust F-46725 • 80G Tax-Exempt</span>
+              <ShieldCheck className="w-4 h-4 text-emerald-700 shrink-0" />
+              <span className="truncate">Regd. Public Charitable Trust F-46725 • 80G Tax-Exempt</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-slate-900 leading-[1.18] tracking-tight">
+            <h1 className="text-2xl sm:text-4xl lg:text-[46px] font-bold text-slate-900 leading-[1.2] sm:leading-[1.18] tracking-tight">
               Bringing Dignity, Education & Lifesaving Relief to Mumbai’s Slums.
             </h1>
 
-            <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl">
+            <p className="text-slate-600 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl">
               Al Aqdas Welfare Association administers accredited English & Urdu high schools,
               daily community kitchens, and free medical camps for marginalized families across South & Central Mumbai.
               Every rupee is audited by independent Chartered Accountants with full public accountability.
             </p>
 
             {/* Quick Actions */}
-            <div className="flex flex-wrap items-center gap-3 pt-1">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 pt-1">
               <button
                 type="button"
                 onClick={() => onOpenDonate(selectedAmount)}
-                className="px-6 py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-sm rounded-md transition-colors shadow-xs flex items-center gap-2"
+                className="w-full sm:w-auto justify-center px-5 py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-sm rounded-md transition-colors shadow-xs flex items-center gap-2"
               >
                 <Heart className="w-4 h-4 fill-current text-emerald-200" />
                 <span>Donate Now via UPI / NetBanking</span>
@@ -72,7 +72,7 @@ export default function SaaSHero({ onOpenDonate, onOpenReceipt }: SaaSHeroProps)
               <button
                 type="button"
                 onClick={onOpenReceipt}
-                className="px-4 py-3 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold text-sm rounded-md transition-colors flex items-center gap-2"
+                className="w-full sm:w-auto justify-center px-4 py-3 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold text-sm rounded-md transition-colors flex items-center gap-2"
               >
                 <FileText className="w-4 h-4 text-slate-600" />
                 <span>Download 80G Tax Receipt</span>
@@ -82,7 +82,7 @@ export default function SaaSHero({ onOpenDonate, onOpenReceipt }: SaaSHeroProps)
 
           {/* Right Column: Giving Card */}
           <div className="lg:col-span-5">
-            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sm:p-7">
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 sm:p-6 sm:p-7">
               <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
                 <div>
                   <h3 className="text-base font-bold text-slate-900">

@@ -90,7 +90,7 @@ export default function Donation() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Column: Giving Configurator (7 cols) */}
-          <div className="lg:col-span-7 bg-white rounded-xl border border-slate-200 p-6 sm:p-7 shadow-xs">
+          <div className="lg:col-span-7 bg-white rounded-xl border border-slate-200 p-4 sm:p-6 sm:p-7 shadow-xs">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
               <div>
                 <h3 className="text-base font-bold text-slate-900">

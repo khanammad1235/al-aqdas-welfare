@@ -98,7 +98,7 @@ export default function IndependenceDaySection() {
                 <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 <span>Chief Guest of Honor</span>
               </div>
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold font-serif text-white">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
                 MLA Amin Patel
               </h3>
               <p className="text-emerald-400 font-semibold text-xs sm:text-sm mt-0.5 sm:mt-1">

@@ -56,30 +56,30 @@ export default function SaaSDonationModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs">
       <div className="relative w-full max-w-xl bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden max-h-[92vh] flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-white">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 border-b border-slate-200 bg-white">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-800 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-800 flex items-center justify-center shrink-0">
               <Heart className="w-4 h-4 fill-current text-emerald-700" />
             </div>
-            <div>
-              <h3 className="text-base font-bold text-slate-900">
-                Support Al Aqdas Welfare Association
+            <div className="min-w-0">
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 truncate">
+                Support Al Aqdas Welfare
               </h3>
-              <p className="text-xs text-slate-500">
-                100% direct-to-cause disbursement • 80G Tax-Exempt
+              <p className="text-[11px] text-slate-500 truncate">
+                100% direct disbursement • 80G Tax-Exempt
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded text-slate-400 hover:text-slate-600 hover:bg-slate-100 flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded text-slate-400 hover:text-slate-600 hover:bg-slate-100 flex items-center justify-center transition-colors shrink-0"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Modal Body */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-5">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5">
           {/* Cause Selector */}
           <div>
             <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-1.5">
@@ -103,7 +103,7 @@ export default function SaaSDonationModal({
             <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-1.5">
               Select Donation Amount:
             </label>
-            <div className="grid grid-cols-5 gap-1.5 mb-2">
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-1.5 mb-2">
               {presetAmounts.map((p) => (
                 <button
                   key={p}

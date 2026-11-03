@@ -65,8 +65,8 @@ export default function FinancialTransparencySection() {
         {/* Dashboard Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Main Chart Card (8 cols) */}
-          <div className="lg:col-span-8 bg-white rounded-xl border border-slate-200 p-6 sm:p-7 shadow-xs">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+          <div className="lg:col-span-8 bg-white rounded-xl border border-slate-200 p-4 sm:p-6 sm:p-7 shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 mb-6 gap-2">
               <div>
                 <h3 className="text-sm font-bold text-slate-900">
                   {activeTab === 'allocation' ? 'Audited Program vs Operations Breakdown' : 'Quarterly Field Aid Deployments (in ₹ Lakhs)'}
