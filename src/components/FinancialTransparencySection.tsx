@@ -3,10 +3,7 @@ import {
   PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip,
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend
 } from 'recharts'
-import {
-  ShieldCheck, FileSpreadsheet, Download, ExternalLink,
-  Award, CheckCircle2, ChevronRight, Lock, Eye
-} from 'lucide-react'
+import { ShieldCheck, Award, Eye } from 'lucide-react'
 import { AUDITED_ALLOCATION, QUARTERLY_AID_DEPLOYMENT, STATUTORY_CREDENTIALS } from '../data/ngoData'
 
 export default function FinancialTransparencySection() {
