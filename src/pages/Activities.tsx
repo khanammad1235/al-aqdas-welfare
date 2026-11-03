@@ -143,32 +143,32 @@ export default function Activities() {
   return (
     <div className="bg-slate-50 min-h-screen">
       <PageHeader
-        title="Field Operations & Programs Hub"
-        subtitle="Direct institutional execution across education, healthcare, nutrition, and emergency logistics."
+        title="Our Humanitarian Programs & Schools"
+        subtitle="Direct execution across education, digital skills, free healthcare, and daily nutrition relief."
         bgImage="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=1200&h=300&fit=crop"
       />
 
-      {/* Operational Stats Telemetry Strip */}
+      {/* Program Summary Strip */}
       <div className="bg-white border-b border-slate-200 py-4 shadow-2xs">
         <div className="max-w-[1240px] mx-auto px-4 flex flex-wrap items-center justify-around gap-4 text-center">
           <div>
-            <p className="text-xl sm:text-2xl font-bold font-mono text-emerald-700">500+ Students</p>
-            <p className="text-[11px] text-slate-500 font-semibold">Educated Annually</p>
+            <p className="text-xl sm:text-2xl font-bold text-emerald-800">500+ Students</p>
+            <p className="text-xs text-slate-500 font-medium">Educated Annually</p>
           </div>
           <div className="h-8 w-px bg-slate-200 hidden sm:block" />
           <div>
-            <p className="text-xl sm:text-2xl font-bold font-mono text-rose-600">1,200+ Patients</p>
-            <p className="text-[11px] text-slate-500 font-semibold">Free Medical Care</p>
+            <p className="text-xl sm:text-2xl font-bold text-slate-800">1,200+ Patients</p>
+            <p className="text-xs text-slate-500 font-medium">Free Medical Care</p>
           </div>
           <div className="h-8 w-px bg-slate-200 hidden sm:block" />
           <div>
-            <p className="text-xl sm:text-2xl font-bold font-mono text-amber-600">20,000+ Meals</p>
-            <p className="text-[11px] text-slate-500 font-semibold">Community Kitchen</p>
+            <p className="text-xl sm:text-2xl font-bold text-slate-800">20,000+ Meals</p>
+            <p className="text-xs text-slate-500 font-medium">Community Kitchen</p>
           </div>
           <div className="h-8 w-px bg-slate-200 hidden sm:block" />
           <div>
-            <p className="text-xl sm:text-2xl font-bold font-mono text-blue-600">4 Schools & Labs</p>
-            <p className="text-[11px] text-slate-500 font-semibold">Owned & Administered</p>
+            <p className="text-xl sm:text-2xl font-bold text-slate-800">4 Schools & Labs</p>
+            <p className="text-xs text-slate-500 font-medium">Owned & Administered</p>
           </div>
         </div>
       </div>

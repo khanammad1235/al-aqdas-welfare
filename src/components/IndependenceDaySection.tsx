@@ -12,7 +12,6 @@ const independencePhotos = Object.values(photoModules) as string[]
 export default function IndependenceDaySection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
   const touchStartXRef = useRef<number | null>(null)
   const thumbnailContainerRef = useRef<HTMLDivElement | null>(null)
 
@@ -28,26 +27,14 @@ export default function IndependenceDaySection() {
     setCurrentIndex((prev) => (prev - 1 + totalPhotos) % totalPhotos)
   }, [totalPhotos])
 
-  // Auto-play slideshow every 3.5 seconds on desktop only (disabled on mobile screens < 768px)
+  // Center thumbnail within its own container without scrolling the window
   useEffect(() => {
-    if (!isAutoPlaying || totalPhotos === 0 || isLightboxOpen) return
-
-    // Disable auto-play on mobile screens / touch devices
-    const isMobile = window.innerWidth < 768 || ('ontouchstart' in window && window.innerWidth < 1024)
-    if (isMobile) return
-
-    const timer = setInterval(() => {
-      nextSlide()
-    }, 3500)
-    return () => clearInterval(timer)
-  }, [isAutoPlaying, nextSlide, totalPhotos, isLightboxOpen])
-
-  // Auto-scroll active thumbnail into view
-  useEffect(() => {
-    if (!thumbnailContainerRef.current) return
-    const activeThumb = thumbnailContainerRef.current.children[currentIndex] as HTMLElement
+    const container = thumbnailContainerRef.current
+    if (!container) return
+    const activeThumb = container.children[currentIndex] as HTMLElement
     if (activeThumb) {
-      activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+      const scrollLeft = activeThumb.offsetLeft - (container.clientWidth / 2) + (activeThumb.clientWidth / 2)
+      container.scrollTo({ left: scrollLeft, behavior: 'smooth' })
     }
   }, [currentIndex])
 
@@ -139,8 +126,6 @@ export default function IndependenceDaySection() {
         {/* Carousel Showcase Container */}
         <div
           className="relative max-w-5xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden bg-slate-950 border border-white/15 shadow-2xl group"
-          onMouseEnter={() => setIsAutoPlaying(false)}
-          onMouseLeave={() => setIsAutoPlaying(true)}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >

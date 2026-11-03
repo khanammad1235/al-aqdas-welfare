@@ -162,7 +162,9 @@ export default function Media() {
           </div>
 
           {/* Sidebar */}
-          <ContactSidebar />
+          <div className="w-full lg:w-[35%] shrink-0">
+            <ContactSidebar />
+          </div>
         </div>
       </section>
 
